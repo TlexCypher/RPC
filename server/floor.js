@@ -1,5 +1,5 @@
-const floor = (x) => {
+const floor = (...x) => {
     return Math.floor(x)
 }
 
-export default floor
+module.exports = floor

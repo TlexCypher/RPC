@@ -1,19 +1,19 @@
-from client.methodValidator import MethodValidator
+from methodValidator import MethodValidator
 
 class InputProcessor:
 
     @classmethod
-    def get_inputs():
+    def get_inputs(cls):
         print('Method Name ?: ', end='')
-        method = MethodValidator.get_method()
+        method = InputProcessor.__get_method()
         print('Params ?: ', end='')
-        params = input().split() 
+        params = input().split(',') 
         print('Params Types ?: ', end='')
-        params_type = input().split()
+        params_type = input().split(',')
         return [method, params, params_type]
 
     @classmethod
-    def __get_method():
+    def __get_method(cls):
         valid_method = MethodValidator.get_valid_methods()
 
         while True:

@@ -1,5 +1,5 @@
 const reverse = (s) => {
-    return s.reverse()
+    return s.split("").reverse().join("")
 }
 
-export default reverse
+module.exports = reverse

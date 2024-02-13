@@ -1,29 +1,39 @@
-// bindとかはどうすればいいんだ？
-// nodejsのsocketの使い方を勉強する必要がある
-
-import makeHashMap from "./makeHashMap";
-
-require('dotenv').config()
+const net = require('net')
 const fs = require('fs')
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 
-const hashmap = makeHashMap()
-const rpcJSONPath = process.env.SERVER_ADDRESS
-const rpcJSON = require(rpcJSONPath).parse()
+const server_file = process.env.SERVER_ADDRESS
+const callableHashMap = require('./makeHashMap')()
 
-const callable = hashmap.get(rpcJSON.method)
-const params = rpcJSON.params
-const id = rpcJSON.id
+const server = net.createServer((socket) => {
+    socket.on('data', (bytes) => {
+        console.log('Client is here.')
+        client_inputs = bytes.toString()
+        console.log(client_inputs)
+        client_json = JSON.parse(client_inputs)
+        console.log(client_json)
 
-const result = callable(params)
-const resultType = typeof(result)
+        method = client_json.method
+        params = client_json.params
 
-const response = {
-    "result" : result, 
-    "result_type": resultType, 
-    "id": id
+        callable = callableHashMap.get(method)
+        console.log(callable)
+        console.log(params)
+        result = callable(...params)
+        
+        socket.write(JSON.stringify({ result: result }));
+
+    })
+})
+
+if(fs.existsSync(server_file)) {
+    fs.unlinkSync(server_file)
 }
 
-fs.writeFileSync(process.env.CLIENT_ADDRESS, response)
+server.listen(server_file, () => {
+    console.log(`Server is binded with ${server_file}`)
+})
 
 
 

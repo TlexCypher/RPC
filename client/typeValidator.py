@@ -1,7 +1,7 @@
 class TypeValidator:
 
     @classmethod
-    def is_float_number(candidate_str):
+    def is_float_number(cls, candidate_str):
         try:
             float(candidate_str)
             return True
@@ -9,7 +9,7 @@ class TypeValidator:
             return False
 
     @classmethod
-    def is_int_number(candidate_str):
+    def is_int_number(cls, candidate_str):
         try:
             int(candidate_str)
             return True
@@ -17,5 +17,5 @@ class TypeValidator:
             return False
 
     @classmethod
-    def is_string(candidate):
+    def is_string(cls, candidate):
         return isinstance(candidate, str)

@@ -1,5 +1,5 @@
-const sort = (strArr) => {
+const sort = (...strArr) => {
     return strArr.sort()
 }
 
-export default sort
+module.exports = sort

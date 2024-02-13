@@ -5,8 +5,8 @@ import json
 
 from dotenv import load_dotenv
 
-from client.methodValidator import MethodValidator
-from client.inputProcessor import InputProcessor
+from methodValidator import MethodValidator
+from inputProcessor import InputProcessor
 
 
 class RPC:
@@ -50,17 +50,16 @@ class RPC:
 
 
     def write_into_server(self):
-        self.sock.sendall(self.create_request())
-        self.sock.timeout(2)
+        self.sock.sendall((json.dumps(self.create_request())).encode())
     
 
     def grab_server_response(self):
         try:
             while True:
-                data = str(self.sock.recv(4096))
+                data = self.sock.recv(4096)
 
                 if data:
-                    print('Server Responce: ' + data)
+                    print('Server Responce: ' + str(data))
                 else:
                     break
         finally:

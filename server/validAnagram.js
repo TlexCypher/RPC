@@ -1,5 +1,5 @@
 const validAnagram = (s1, s2) => {
-    return [...s1].sort() === [...s2].sort()
+    return s1.split("").sort().join("") === s2.split("").sort().join("")
 }
 
-export default validAnagram
+module.exports = validAnagram

@@ -1,8 +1,9 @@
-import floor from "./floor"
-import nroot from "./nroot"
-import reverse from "./reverse"
-import sort from "./sort"
-import validAnagram from "./validAnagram"
+const floor = require('./floor')
+const nroot = require('./nroot')
+const reverse = require('./reverse')
+const sort = require('./sort')
+const validAnagram = require('./validAnagram')
+
 
 const makeHashMap = () => {
     const hashmap = new Map()
@@ -14,4 +15,4 @@ const makeHashMap = () => {
     return hashmap
 }
 
-export default makeHashMap
+module.exports = makeHashMap
